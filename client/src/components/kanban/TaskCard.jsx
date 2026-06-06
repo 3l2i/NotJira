@@ -65,11 +65,19 @@ export default function TaskCard({ task, onClick, index = 0 }) {
             {format(new Date(task.deadline), 'MMM dd')}
           </div>
         )}
-        <div className="flex items-center text-[10px] text-gray-500 gap-1 flex-1 min-w-0">
-          <User size={11} className="text-gray-600 shrink-0" />
-          <span className="truncate">
+        <div className="flex items-center gap-1.5 flex-1 min-w-0">
+          {task.assigneeName && task.assigneeName !== 'Unknown' ? (
+            <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[9px] font-bold shrink-0 border border-blue-500/30" title={task.assigneeName}>
+              {task.assigneeName.substring(0, 2).toUpperCase()}
+            </div>
+          ) : (
+            <div className="w-5 h-5 rounded-full bg-gray-500/10 text-gray-500 flex items-center justify-center shrink-0 border border-gray-500/20" title="Unassigned">
+              <User size={10} />
+            </div>
+          )}
+          <span className="truncate text-[10px] text-gray-500">
             {task.assigneeName !== 'Unknown' && task.assigneeName 
-              ? task.assigneeName 
+              ? task.assigneeName.split(' ')[0] 
               : task.assigneeId 
                 ? `User ${task.assigneeId.slice(0, 4)}` 
                 : 'Unassigned'}

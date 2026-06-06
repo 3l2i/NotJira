@@ -5,6 +5,7 @@ import { api } from '../lib/api';
 import MainLayout from '../components/layout/MainLayout';
 import { Plus, Loader2, FolderKanban, X, Calendar, Edit2 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
+import { toast } from 'sonner';
 
 function safeFormat(d, fmt = 'MMM d, yyyy') {
   if (!d) return '';
@@ -50,7 +51,7 @@ export default function ProjectsPage() {
       setProjectToDelete(null);
     },
     onError: (err) => {
-      alert(`Failed to delete project: ${err.message}`);
+      toast.error(`Failed to delete project: ${err.message}`);
       setProjectToDelete(null);
     }
   });

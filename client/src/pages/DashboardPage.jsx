@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import MainLayout from '../components/layout/MainLayout';
 import { isAfter, parseISO } from 'date-fns';
 import { CheckCircle2, Clock, AlertTriangle, TrendingUp, Zap } from 'lucide-react';
+import { SkeletonCard } from '../components/ui/Skeleton';
 
 const STAT_CARDS = [
   {
@@ -38,7 +39,7 @@ const STAT_CARDS = [
 export default function DashboardPage() {
   const { user, token } = useAuth();
 
-  const { data: tasksData } = useQuery({
+  const { data: tasksData, isLoading } = useQuery({
     queryKey: ['tasks', user?.teamId],
     queryFn: () => api.getTasks(token, user?.role === 'manager' ? null : user?.teamId),
     enabled: !!token && !!user,
@@ -71,7 +72,14 @@ export default function DashboardPage() {
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-        {STAT_CARDS.map(({ key, label, icon: Icon, color, iconColor, bgIcon, ringColor }, i) => (
+        {isLoading ? (
+          <>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </>
+        ) : (
+          STAT_CARDS.map(({ key, label, icon: Icon, color, iconColor, bgIcon, ringColor }, i) => (
           <div
             key={key}
             className={`stat-card ${color} p-6 animate-fade-up`}

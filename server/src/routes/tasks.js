@@ -5,6 +5,7 @@ import * as taskService from '../services/taskService.js';
 import * as auditService from '../services/auditService.js';
 import * as notificationService from '../services/notificationService.js';
 import { publishTaskCreated, publishTaskClosed } from '../services/cloudwatchService.js';
+import { validate, createTaskSchema, updateTaskSchema } from '../validators/taskValidator.js';
 
 const router = Router();
 
@@ -95,7 +96,7 @@ router.get('/:taskId/audit', async (req, res, next) => {
  * Create a new task. Only managers can create tasks.
  * Body: { title, description, priority, deadline, assigneeId, teamId, projectId }
  */
-router.post('/', requireRole('manager', 'admin'), async (req, res, next) => {
+router.post('/', requireRole('manager', 'admin'), validate(createTaskSchema), async (req, res, next) => {
   try {
     const task = await taskService.createTask({
       ...req.body,
@@ -121,7 +122,7 @@ router.post('/', requireRole('manager', 'admin'), async (req, res, next) => {
  * Update a task. Managers can update anything.
  * Employees can only update status of tasks assigned to their team.
  */
-router.put('/:taskId', enforceTeamIsolation, async (req, res, next) => {
+router.put('/:taskId', enforceTeamIsolation, validate(updateTaskSchema), async (req, res, next) => {
   try {
     const existingTask = await taskService.getTaskById(req.params.taskId);
     if (!existingTask) {

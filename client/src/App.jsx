@@ -7,8 +7,12 @@ import DashboardPage from './pages/DashboardPage';
 import TasksPage from './pages/TasksPage';
 import TeamsPage from './pages/TeamsPage';
 import ProjectsPage from './pages/ProjectsPage';
+import MyTasksPage from './pages/MyTasksPage';
+import WorkloadPage from './pages/WorkloadPage';
+import PriorityMatrixPage from './pages/PriorityMatrixPage';
 
 import AnalyticsPage from './pages/AnalyticsPage';
+import { Toaster } from 'sonner';
 
 // Configure TanStack Query
 const queryClient = new QueryClient({
@@ -94,6 +98,7 @@ function ManagerRoute({ children }) {
 function App() {
   return (
     <ErrorBoundary>
+      <Toaster theme="dark" position="top-right" richColors />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <BrowserRouter>
@@ -108,6 +113,10 @@ function App() {
                 <ProtectedRoute><TasksPage /></ProtectedRoute>
               } />
 
+              <Route path="/my-tasks" element={
+                <ProtectedRoute><MyTasksPage /></ProtectedRoute>
+              } />
+
               <Route path="/analytics" element={
                 <ProtectedRoute><AnalyticsPage /></ProtectedRoute>
               } />
@@ -118,6 +127,14 @@ function App() {
 
               <Route path="/projects" element={
                 <ProtectedRoute><ProjectsPage /></ProtectedRoute>
+              } />
+
+              <Route path="/workload" element={
+                <ProtectedRoute><WorkloadPage /></ProtectedRoute>
+              } />
+
+              <Route path="/priority-matrix" element={
+                <ProtectedRoute><PriorityMatrixPage /></ProtectedRoute>
               } />
 
               <Route path="/" element={<RootRoute />} />

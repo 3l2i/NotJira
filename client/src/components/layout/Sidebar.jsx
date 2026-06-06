@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
-  LayoutDashboard, CheckSquare, Users, FolderKanban, LogOut, ChevronLeft, ChevronRight, Sparkles, PieChart
+  LayoutDashboard, CheckSquare, Users, FolderKanban, LogOut, ChevronLeft, ChevronRight, Sparkles, PieChart, Search, BarChart2, Grid2X2
 } from 'lucide-react';
 
 const APP_NAME = 'A7SAN MN JIRA';
@@ -13,14 +13,17 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-    { name: 'My Tasks',  icon: CheckSquare,    path: '/tasks'     },
-    { name: 'Analytics', icon: PieChart,       path: '/analytics' },
+    { name: 'Dashboard',  icon: LayoutDashboard, path: '/dashboard' },
+    { name: 'Board',      icon: CheckSquare,     path: '/tasks'     },
+    { name: 'My Tasks',  icon: CheckSquare,     path: '/my-tasks'  },
+    { name: 'Analytics', icon: PieChart,        path: '/analytics' },
   ];
   if (user?.role === 'manager') {
     navItems.push(
-      { name: 'Projects',     icon: FolderKanban, path: '/projects' },
-      { name: 'Manage Teams', icon: Users,        path: '/teams'    }
+      { name: 'Workload',        icon: BarChart2,    path: '/workload'        },
+      { name: 'Priority Matrix', icon: Grid2X2,      path: '/priority-matrix' },
+      { name: 'Projects',        icon: FolderKanban, path: '/projects'        },
+      { name: 'Manage Teams',    icon: Users,        path: '/teams'           }
     );
   }
 
@@ -83,6 +86,20 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Search shortcut hint */}
+      {!collapsed && (
+        <div className="px-4 pb-3">
+          <button
+            onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, metaKey: true, bubbles: true }))}
+            className="w-full flex items-center gap-2 px-3 py-2 bg-white/[0.03] border border-white/[0.07] rounded-xl text-gray-500 hover:text-gray-300 hover:bg-white/[0.06] transition-all text-sm"
+          >
+            <Search size={14} />
+            <span className="flex-1 text-left">Search...</span>
+            <kbd className="text-[10px] font-mono bg-white/5 border border-white/10 px-1.5 py-0.5 rounded">⌘K</kbd>
+          </button>
+        </div>
+      )}
 
       {/* User + Logout */}
       <div className="p-4 border-t border-white/5 shrink-0">

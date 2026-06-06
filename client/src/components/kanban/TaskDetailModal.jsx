@@ -4,6 +4,7 @@ import { api } from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
 import { X, MessageSquare, History, Send, Loader2, Clock, CheckCircle2, User } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
+import { toast } from 'sonner';
 
 // Safe date formatter — never crashes if value is null/undefined
 function safeFormat(dateStr, fmt = 'MMM d, h:mm a') {
@@ -68,7 +69,7 @@ export default function TaskDetailModal({ isOpen, onClose, task }) {
       setEditingCommentId(null);
       setEditingCommentContent('');
     },
-    onError: (err) => alert(`Failed to update comment: ${err.message}`)
+    onError: (err) => toast.error(`Failed to update comment: ${err.message}`)
   });
 
   const deleteCommentMutation = useMutation({
@@ -77,7 +78,7 @@ export default function TaskDetailModal({ isOpen, onClose, task }) {
       queryClient.invalidateQueries({ queryKey: ['comments', task.taskId] });
       setCommentToDelete(null);
     },
-    onError: (err) => alert(`Failed to delete comment: ${err.message}`)
+    onError: (err) => toast.error(`Failed to delete comment: ${err.message}`)
   });
 
   const deleteTaskMutation = useMutation({
@@ -87,7 +88,7 @@ export default function TaskDetailModal({ isOpen, onClose, task }) {
       onClose();
     },
     onError: (err) => {
-      alert(`Failed to delete task: ${err.message}`);
+      toast.error(`Failed to delete task: ${err.message}`);
       setTaskToDelete(false);
     }
   });

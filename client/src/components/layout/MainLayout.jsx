@@ -1,4 +1,5 @@
 import Sidebar from './Sidebar';
+import GlobalSearch from '../ui/GlobalSearch';
 
 export default function MainLayout({ children }) {
   return (
@@ -13,6 +14,9 @@ export default function MainLayout({ children }) {
       <div className="grid-overlay" />
 
       <Sidebar />
+
+      {/* Global Search — always mounted, triggered with ⌘K from anywhere */}
+      <GlobalSearch />
 
       <main className="flex-1 overflow-y-auto relative z-10">
         <div className="p-8 max-w-7xl mx-auto animate-fade-up">
