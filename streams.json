@@ -1,0 +1,35 @@
+﻿{
+    "logStreams": [
+        {
+            "logStreamName": "2026/05/21/[$LATEST]17087e9c1c0b460ca58e89667cb2fc1b",
+            "creationTime": 1779367191677,
+            "firstEventTimestamp": 1779367183794,
+            "lastEventTimestamp": 1779367185515,
+            "lastIngestionTime": 1779367191687,
+            "uploadSequenceToken": "49039859672893129439012341024660917063209657595136800251",
+            "arn": "arn:aws:logs:eu-north-1:722867460649:log-group:/aws/lambda/MiniJira-AssignmentWorker:log-stream:2026/05/21/[$LATEST]17087e9c1c0b460ca58e89667cb2fc1b",
+            "storedBytes": 0
+        },
+        {
+            "logStreamName": "2026/05/21/[$LATEST]62880571f2ee462fb50cc866d0aa4efd",
+            "creationTime": 1779366524719,
+            "firstEventTimestamp": 1779366521377,
+            "lastEventTimestamp": 1779366523186,
+            "lastIngestionTime": 1779366524728,
+            "uploadSequenceToken": "49039859672892242898437500312955242114068634570375525804",
+            "arn": "arn:aws:logs:eu-north-1:722867460649:log-group:/aws/lambda/MiniJira-AssignmentWorker:log-stream:2026/05/21/[$LATEST]62880571f2ee462fb50cc866d0aa4efd",
+            "storedBytes": 0
+        },
+        {
+            "logStreamName": "2026/05/21/[$LATEST]0e9d14a9a71e4fec87dfd256de01e31b",
+            "creationTime": 1779360331503,
+            "firstEventTimestamp": 1779360325184,
+            "lastEventTimestamp": 1779360521021,
+            "lastIngestionTime": 1779360529290,
+            "uploadSequenceToken": "49039859672884273594400907588504032064879127360825423123",
+            "arn": "arn:aws:logs:eu-north-1:722867460649:log-group:/aws/lambda/MiniJira-AssignmentWorker:log-stream:2026/05/21/[$LATEST]0e9d14a9a71e4fec87dfd256de01e31b",
+            "storedBytes": 0
+        }
+    ],
+    "nextToken": "Kwfr0bfVKkYk4OrYazFRia8GkRHuR-cNZsodNI06HA-UYV3wNq7E28asgvIof9FEcFt0sLPL7tImHLH0c9byeSZdbPrp4RXzACmX5wexaQkBB_qG4U12LB5MqzbD2PjcZcjyh7yLrM0tTe13lE3h9iVCcDr4hAOYB0-GvLj31skYPubgyfZ9CT4rBX_CzpMZJEF7_e_jd06qzjIR9hyrL4SVkSToTITiBf22vX1ZvN3uk4fHqHqe5PId5Cve6RNMXir7wCjB1BJHKOxk0gKvk_7dMcmpb0v8dAOwyzJLbXp-YUSVMB6mWWWcIQs_z5IxkluPPQmHHDS1WyfiKkp-IGDsk3b9unPmbylp5SQ_VjoDWaxvzyWkpukog-N6h8dxUU-ipkCggn0v_m-m3sI-01nI4iIcgO4LjyK4LS0byDw"
+}

@@ -1,0 +1,67 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::minijira-originals-ali-605856",
+                "arn:aws:s3:::minijira-originals-ali-605856/*",
+                "arn:aws:s3:::minijira-resized-ali-605856",
+                "arn:aws:s3:::minijira-resized-ali-605856/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:Scan",
+                "dynamodb:Query"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-north-1:722867460649:table/MiniJira_Users",
+                "arn:aws:dynamodb:eu-north-1:722867460649:table/MiniJira_Tasks",
+                "arn:aws:dynamodb:eu-north-1:722867460649:table/MiniJira_AuditLog"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "sns:Publish",
+            "Resource": "arn:aws:sns:eu-north-1:722867460649:MiniJira-UserNotifications"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:aws:sqs:eu-north-1:722867460649:MiniJira-AssignmentQueue"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "cloudwatch:PutMetricData",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "cloudwatch:namespace": "MiniJira/Analytics"
+                }
+            }
+        }
+    ]
+}

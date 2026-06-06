@@ -1,0 +1,22 @@
+{
+  "name": "mini-jira-aws",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "setup:tables": "node infrastructure/dynamodb/create-tables.js",
+    "setup:cognito": "node infrastructure/cognito/setup-cognito.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.1045.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1044.0"
+  }
+}

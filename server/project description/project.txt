@@ -1,0 +1,77 @@
+Software Cloud Computing 2026
+Dr. John Zaki
+Mohamed Abdelsatar
+Jessica Ehab
+Donia Ali
+Mini-Jira on AWS
+Deadline: 22/5/2026 at 11:59PM
+Description: You will build and host a lightweight team task-management web application
+( think of it as a stripped-down Jira or Trello ) fully running on AWS. The application
+supports multiple teams inside a company, where a manager assigns tasks to specific
+employees on specific teams, and each team only sees its own work. Beyond CRUD, the
+system uses event-driven AWS services (SNS, SQS, EventBridge), a Lambda-based image
+pipeline, and CloudWatch dashboards for monitoring — so the architecture genuinely
+exercises the topics covered in lectures. The app must be deployed in a high-availability
+setup across at least two Availability Zones, fronted by an Application Load Balancer and
+CloudFront. All persistence is on DynamoDB; uploaded images live in S3 and are processed
+by Lambda.
+Functional Requirements
+Roles and teams
+The system has three role types and supports an arbitrary number of teams (e.g., Frontend,
+Backend, QA, DevOps). Every employee belongs to exactly one team. A manager is not bound to
+a single team — managers have visibility across the entire company.
+• Manager — creates projects, creates tasks, assigns tasks to any employee on any team, sees
+all tasks across all teams, sees per-team dashboards.
+• Employees — sees only the tasks assigned to their own team, can update status of tasks
+assigned to them, can comment and attach files.
+• Admin (optional, can be merged with Manager) — creates teams and adds users to teams.
+Task lifecycle
+• Manager creates a task: title, description, priority, deadline, assignee, team, optional image
+attachment.
+• Status flow: To Do → In Progress → In Review → Done.
+• Comments thread on each task.
+• File/image attachments stored in S3 and resized by a Lambda function on upload.
+• Audit log of status changes (who moved it, when). Team isolation (important) Tasks must be
+filtered by the team on the server side, not just hidden in the UI. An employee on the Backend
+team must not be able to fetch a Frontend team task even by guessing its ID. Use a Global
+Secondary Index on (teamId) in DynamoDB and enforce the team check in every API handler.
+The manager bypasses this filter and sees everything.
+CRUD coverage
+• Create / Read / Update / Delete on Tasks.
+• Create / Read / Update / Delete on Projects.
+• Create / Read on Comments.
+• Image upload, replacement (keeping old versions in S3), and deletion alongside the task.
+_______________________________________________________________________________________________________________________
+Requirements:
+● Technology Stack: Choose any JavaScript stack for developing the web application.
+Examples include MEAN (MongoDB, Express.js, AngularJS, Node.js), MERN (MongoDB,
+Express.js, React, Node.js), or Typescript Stack: NestJs & NextJs, or any other stack (you
+will use DynamoDB instead of Mongo).
+● CRUD Operations: Implement Create, Read, Update, and Delete operations on Tasks,
+Projects, and Comments. Tasks have at minimum: title, description, status, priority,
+deadline, assignee, team, and an optional image attachment.
+● Role-Based Access (Manager / Employee / Teams): The system must support three
+role types — Manager, Employee, and optionally Admin — and an arbitrary number of
+teams (e.g., Frontend, Backend, QA). Every employee belongs to exactly one team. The
+manager can assign tasks to any employee on any team and can view all tasks across the
+company. Employees can only view and modify tasks belonging to their own team.
+Filtering must be enforced server-side, not just hidden in the UI.
+● Demo Scenario (must work on demo day without code changes): Manager Ali
+creates Task A and assigns it to Sara on the Frontend team, and creates Task B and
+assigns it to Omar on the Backend team. When Sara logs in, she sees only Task A. When
+Omar logs in, he sees only Task B. When Ali logs back in as manager, he sees both tasks
+and can filter by team.
+● Authentication: Use AWS Cognito to manage users, sign-in, sign-up, and to store role
+and team membership. Tokens issued by Cognito must be validated by your backend on
+every request.
+● High Availability Architecture: Design the architecture for high availability by
+deploying the application across multiple EC2 instances in different Availability Zones
+within a region, behind an Application Load Balancer and an Auto Scaling Group.
+Include CloudFront for faster delivery of your application.
+● AWS SDK Usage: Use AWS SDK for JavaScript to interact with the AWS services
+programmatically from your application backend (DynamoDB, S3, SNS, SQS,
+CloudWatch custom metrics, etc.).
+● DynamoDB Integration: Use DynamoDB to store and manage all application data.
+Design tables for Users, Teams, Projects, Tasks, and Comments. The Tasks table must
+include at least one Global Secondary Index on teamId and one on assigneeId to support
+team-scoped queries.

@@ -1,0 +1,9 @@
+﻿aws : 
+At line:1 char:32
++ ... NG="utf-8"; aws logs get-log-events --log-group-name "/aws/lambda/Min ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the GetLogEvents operation: The specified log 
+stream does not exist.
