@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { Search, X, ArrowUp, ArrowDown, CornerDownLeft } from 'lucide-react';
@@ -11,8 +12,9 @@ const PRIORITY_COLOR = {
   low:      'text-gray-400',
 };
 
-export default function GlobalSearch({ onSelectTask }) {
+export default function GlobalSearch() {
   const { token, user } = useAuth();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -29,7 +31,7 @@ export default function GlobalSearch({ onSelectTask }) {
 
   const allTasks = tasksData?.tasks || [];
 
-  const results = query.trim().length < 2 ? [] : allTasks.filter(t => {
+  const results = query.trim().length < 1 ? [] : allTasks.filter(t => {
     const q = query.toLowerCase();
     return (
       t.title?.toLowerCase().includes(q) ||
@@ -77,8 +79,9 @@ export default function GlobalSearch({ onSelectTask }) {
   const handleSelect = useCallback((task) => {
     setIsOpen(false);
     setQuery('');
-    if (onSelectTask) onSelectTask(task);
-  }, [onSelectTask]);
+    // Navigate to the tasks board — the task will be visible there
+    navigate('/tasks');
+  }, [navigate]);
 
   if (!isOpen) return null;
 
@@ -115,9 +118,9 @@ export default function GlobalSearch({ onSelectTask }) {
 
         {/* Results */}
         <div ref={listRef} className="max-h-[360px] overflow-y-auto">
-          {query.trim().length < 2 ? (
+          {query.trim().length < 1 ? (
             <div className="py-10 text-center text-gray-500 text-sm">
-              Type at least 2 characters to search...
+              Start typing to search tasks...
             </div>
           ) : results.length === 0 ? (
             <div className="py-10 text-center text-gray-500 text-sm">

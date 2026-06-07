@@ -204,10 +204,10 @@ export default function TasksPage() {
             )}
 
             {/* Priority filter */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3">
-              <Filter size={15} className={`mr-2 shrink-0 ${filterPriority !== 'all' ? 'text-indigo-400' : 'text-gray-400'}`} />
+            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 gap-2">
+              <Filter size={15} className={filterPriority !== 'all' ? 'text-indigo-400' : 'text-gray-400'} />
               <select
-                className="bg-transparent text-sm text-gray-300 py-2 focus:outline-none"
+                className="bg-[#13131f] text-sm text-gray-200 py-2 pr-2 focus:outline-none cursor-pointer rounded"
                 value={filterPriority}
                 onChange={(e) => setFilterPriority(e.target.value)}
               >
@@ -220,10 +220,10 @@ export default function TasksPage() {
             </div>
 
             {/* Assignee filter */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3">
-              <Users size={15} className={`mr-2 shrink-0 ${filterAssignee !== 'all' ? 'text-indigo-400' : 'text-gray-400'}`} />
+            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 gap-2">
+              <Users size={15} className={filterAssignee !== 'all' ? 'text-indigo-400' : 'text-gray-400'} />
               <select
-                className="bg-transparent text-sm text-gray-300 py-2 focus:outline-none"
+                className="bg-[#13131f] text-sm text-gray-200 py-2 pr-2 focus:outline-none cursor-pointer rounded"
                 value={filterAssignee}
                 onChange={(e) => setFilterAssignee(e.target.value)}
               >
