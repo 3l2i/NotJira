@@ -1,7 +1,7 @@
 # NotJira on AWS
 
 > **Live Demo:** https://d9lm1us8lvrs3.cloudfront.net
-> **GitHub Repo:** https://github.com/ziad102828/Mini-JiraAWS
+> **GitHub Repo:** https://github.com/3l2i/NotJira/tree/main
 > **Submission Date:** May 22, 2026
 > **Region:** eu-north-1 (Stockholm)
 
@@ -256,7 +256,7 @@ const taskData = JSON.parse(snsMessage.Message); // SNS message = actual task da
 
 ## 🎥 Demo Video
 
-[**Watch Full Demo**](YOUR-YOUTUBE-LINK-HERE) *(Add after recording)*
+[**Watch Full Demo**](https://youtu.be/T-qR7sVdsVs) 
 
 **Demo covers:**
 1. Architecture diagram walkthrough
@@ -273,18 +273,7 @@ const taskData = JSON.parse(snsMessage.Message); // SNS message = actual task da
 
 - **GitHub Repository:** https://github.com/ziad102828/Mini-JiraAWS
 - **Live Application:** https://d9lm1us8lvrs3.cloudfront.net
-- **Demo Video:** *(add YouTube link)*
+- **Demo Video:** https://youtu.be/T-qR7sVdsVs
 - **AWS Region:** eu-north-1 (Stockholm)
 
 ---
-
-## ⚠️ Grading Note
-
-EC2 instances are stopped post-submission (ASG desired=0) to minimize cost.
-
-**To restart for grading:**
-1. Go to AWS Console → EC2 → Auto Scaling Groups
-2. Select `MiniJira-ASG` → Edit
-3. Set Desired: 2, Min: 2 → Save
-4. Wait 3–5 minutes for instances to boot and pass health checks
-5. CloudFront URL will work again: https://d9lm1us8lvrs3.cloudfront.net
