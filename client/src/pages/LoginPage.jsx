@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Loader2, Sparkles, ArrowRight } from 'lucide-react';
 
-const APP_NAME = 'A7SAN MN JIRA';
+const APP_NAME = 'NotJira';
 
 export default function LoginPage() {
   const [email, setEmail]         = useState('');
@@ -31,10 +31,6 @@ export default function LoginPage() {
     }
   }
 
-  const setTestUser = (type) => {
-    setEmail(`${type}@minijira.com`);
-    setPassword('Password123!');
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center overflow-hidden relative" style={{ background: '#07070f' }}>
@@ -119,26 +115,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Logins */}
-          <div className="mt-8 pt-6 border-t border-white/5">
-            <p className="text-[10px] text-center text-gray-600 mb-3 uppercase tracking-widest">Quick Test Accounts</p>
-            <div className="flex justify-center gap-2">
-              {[
-                { label: '⚡ Ali (Manager)', type: 'ali' },
-                { label: '💻 Sara (Frontend)', type: 'sara' },
-                { label: '🔧 Omar (Backend)', type: 'omar' },
-              ].map(({ label, type }) => (
-                <button
-                  key={type}
-                  onClick={() => setTestUser(type)}
-                  type="button"
-                  className="text-[10px] px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-indigo-500/15 text-gray-400 hover:text-indigo-300 transition-all border border-white/5 hover:border-indigo-500/25 font-medium"
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>

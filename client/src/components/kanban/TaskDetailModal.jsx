@@ -118,8 +118,8 @@ export default function TaskDetailModal({ isOpen, onClose, task }) {
   const auditLogs  = auditData?.auditLog     || [];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="bg-[#11111a] border border-white/10 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+      <div className="bg-[#0e0e1b] border border-white/10 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="p-6 border-b border-white/5 flex-shrink-0">
@@ -200,7 +200,7 @@ export default function TaskDetailModal({ isOpen, onClose, task }) {
               onClick={() => setActiveTab(key)}
               className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
                 activeTab === key
-                  ? 'text-blue-400 border-b-2 border-blue-400 bg-blue-400/5'
+                  ? 'text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5'
                   : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
               }`}
             >

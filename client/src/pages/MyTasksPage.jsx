@@ -14,7 +14,7 @@ function safeFormat(d, fmt = 'MMM d, yyyy') {
 
 const STATUS_CONFIG = {
   todo:        { label: 'To Do',        color: 'bg-gray-500/20 text-gray-300 border-gray-500/20' },
-  in_progress: { label: 'In Progress',  color: 'bg-blue-500/20 text-blue-300 border-blue-500/20' },
+  in_progress: { label: 'In Progress',  color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' },
   in_review:   { label: 'In Review',    color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/20' },
   done:        { label: 'Done',         color: 'bg-green-500/20 text-green-300 border-green-500/20' },
 };

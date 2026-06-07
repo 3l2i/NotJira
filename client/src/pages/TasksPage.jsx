@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   DndContext, 
@@ -18,8 +18,63 @@ import KanbanColumn from '../components/kanban/KanbanColumn';
 import TaskCard from '../components/kanban/TaskCard';
 import CreateTaskModal from '../components/kanban/CreateTaskModal';
 import TaskDetailModal from '../components/kanban/TaskDetailModal';
-import { Loader2, Plus, Filter, Users, Download, X } from 'lucide-react';
+import { Loader2, Plus, Filter, Users, Download, X, ChevronDown, Check } from 'lucide-react';
 import { SkeletonKanbanBoard } from '../components/ui/Skeleton';
+
+// ─── Custom Dropdown Component ───────────────────────────────────────────────
+function CustomDropdown({ value, onChange, options, icon: Icon, placeholder }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const selected = options.find(o => o.value === value);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm font-medium transition-all ${
+          value !== options[0]?.value
+            ? 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300'
+            : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20'
+        }`}
+      >
+        {Icon && <Icon size={14} className={value !== options[0]?.value ? 'text-indigo-400' : 'text-gray-400'} />}
+        <span>{selected?.label || placeholder}</span>
+        {selected?.dot && <span className={`w-2 h-2 rounded-full ${selected.dot}`} />}
+        <ChevronDown size={12} className={`transition-transform ${open ? 'rotate-180' : ''} text-gray-500`} />
+      </button>
+      {open && (
+        <div className="absolute top-full mt-1.5 left-0 min-w-[160px] bg-[#13131f] border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden py-1">
+          {options.map(opt => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => { onChange(opt.value); setOpen(false); }}
+              className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
+                value === opt.value
+                  ? 'bg-indigo-500/20 text-indigo-300'
+                  : 'text-gray-300 hover:bg-white/5 hover:text-white'
+              }`}
+            >
+              {opt.dot && <span className={`w-2 h-2 rounded-full shrink-0 ${opt.dot}`} />}
+              <span className="flex-1 text-left">{opt.label}</span>
+              {value === opt.value && <Check size={12} className="text-indigo-400 shrink-0" />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const COLUMNS = [
   { id: 'todo', title: 'To Do' },
@@ -185,54 +240,44 @@ export default function TasksPage() {
             <p className="text-gray-500 text-sm mt-1">Manage and track your team's tasks</p>
           </div>
           
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center flex-wrap">
             {/* Team filter — manager only */}
             {user?.role === 'manager' && (
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3">
-                <Users size={15} className="text-gray-400 mr-2 shrink-0" />
-                <select 
-                  className="bg-transparent text-sm text-gray-300 py-2 focus:outline-none"
-                  value={selectedTeam}
-                  onChange={(e) => setSelectedTeam(e.target.value)}
-                >
-                  <option value="all">All Teams</option>
-                  {teamsData?.teams?.map(team => (
-                    <option key={team.teamId} value={team.teamId}>{team.name}</option>
-                  ))}
-                </select>
-              </div>
+              <CustomDropdown
+                value={selectedTeam}
+                onChange={setSelectedTeam}
+                icon={Users}
+                options={[
+                  { value: 'all', label: 'All Teams' },
+                  ...(teamsData?.teams?.map(team => ({ value: team.teamId, label: team.name })) || [])
+                ]}
+              />
             )}
 
             {/* Priority filter */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 gap-2">
-              <Filter size={15} className={filterPriority !== 'all' ? 'text-indigo-400' : 'text-gray-400'} />
-              <select
-                className="bg-[#13131f] text-sm text-gray-200 py-2 pr-2 focus:outline-none cursor-pointer rounded"
-                value={filterPriority}
-                onChange={(e) => setFilterPriority(e.target.value)}
-              >
-                <option value="all">All Priorities</option>
-                <option value="critical">🔴 Critical</option>
-                <option value="high">🟠 High</option>
-                <option value="medium">🔵 Medium</option>
-                <option value="low">⚪ Low</option>
-              </select>
-            </div>
+            <CustomDropdown
+              value={filterPriority}
+              onChange={setFilterPriority}
+              icon={Filter}
+              options={[
+                { value: 'all',      label: 'All Priorities' },
+                { value: 'critical', label: 'Critical', dot: 'bg-red-500' },
+                { value: 'high',     label: 'High',     dot: 'bg-orange-500' },
+                { value: 'medium',   label: 'Medium',   dot: 'bg-blue-500' },
+                { value: 'low',      label: 'Low',      dot: 'bg-gray-500' },
+              ]}
+            />
 
             {/* Assignee filter */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 gap-2">
-              <Users size={15} className={filterAssignee !== 'all' ? 'text-indigo-400' : 'text-gray-400'} />
-              <select
-                className="bg-[#13131f] text-sm text-gray-200 py-2 pr-2 focus:outline-none cursor-pointer rounded"
-                value={filterAssignee}
-                onChange={(e) => setFilterAssignee(e.target.value)}
-              >
-                <option value="all">All Members</option>
-                {uniqueAssignees.map(a => (
-                  <option key={a.id} value={a.id}>{a.name}</option>
-                ))}
-              </select>
-            </div>
+            <CustomDropdown
+              value={filterAssignee}
+              onChange={setFilterAssignee}
+              icon={Users}
+              options={[
+                { value: 'all', label: 'All Members' },
+                ...uniqueAssignees.map(a => ({ value: a.id, label: a.name }))
+              ]}
+            />
 
             {/* Clear filters badge */}
             {hasActiveFilters && (

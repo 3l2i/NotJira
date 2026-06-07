@@ -5,8 +5,8 @@ import {
   LayoutDashboard, CheckSquare, Users, FolderKanban, LogOut, ChevronLeft, ChevronRight, Sparkles, PieChart, Search, BarChart2, Grid2X2
 } from 'lucide-react';
 
-const APP_NAME = 'A7SAN MN JIRA';
-const APP_SHORT = 'AMJ';
+const APP_NAME = 'NotJira';
+const APP_SHORT = 'NJ';
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
