@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./notjira_banner.png" alt="NotJira Banner" width="100%">
+</p>
+
 # NotJira on AWS
 
 > **Live Demo:** https://d9lm1us8lvrs3.cloudfront.net
