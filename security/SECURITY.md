@@ -32,11 +32,9 @@ This document details the security posture, architecture, and threat mitigation 
 - **Secret Management:** Sensitive configuration variables are managed via **AWS Systems Manager Parameter Store**, keeping credentials off the EC2 disk.
 
 ## Monitoring, Detection, & Auditing
-- **AWS CloudTrail:** Enabled to provide a comprehensive audit log of all AWS API calls across the account.
-- **AWS GuardDuty:** Enabled for real-time threat detection, monitoring VPC Flow Logs and CloudTrail for anomalies such as port scanning or credential exfiltration.
-- **Application Audit Log:** A custom DynamoDB table (`MiniJira_AuditLog`) tracks user actions (status changes, task creation) for non-repudiation.
+- **Amazon CloudWatch:** Configured with custom dashboards and alarms to monitor system health, Lambda errors, and SQS queue delays.
+- **Application Audit Log:** A custom DynamoDB table (`MiniJira_AuditLog`) tracks user actions (status changes, task creation) for non-repudiation and accountability.
 
 ## Documentation & Reporting
 - **STRIDE Threat Model:** An extensive threat model mapping architecture components against Spoofing, Tampering, Repudiation, Information Disclosure, DoS, and Elevation of Privilege. See [THREAT_MODEL.md](./THREAT_MODEL.md).
-- **Vulnerability Scanning:** Routine checks using `npm audit` and Snyk to ensure zero high/critical dependencies.
-- **Dynamic Application Security Testing (DAST):** Validated via authenticated OWASP ZAP scans.
+- **Security Headers Scan:** Validated via SecurityHeaders.com, achieving an 'A+' grade by enforcing strict policies through CloudFront.

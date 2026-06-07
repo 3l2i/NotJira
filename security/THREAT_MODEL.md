@@ -26,7 +26,7 @@ This document outlines the threat model for the Mini-Jira AWS application using 
 ## 3. Repudiation
 *Threat:* A user denies performing an action, and the system lacks proof.
 * **Application Logic:** Mitigated by the custom `MiniJira_AuditLog` DynamoDB table. Every task creation, status change, and comment is logged with the `actorId`, `actorName`, and exact timestamp.
-* **Infrastructure:** Mitigated by **AWS CloudTrail**, which logs every API call made against AWS services.
+* **Infrastructure Logging:** Mitigated by comprehensive CloudWatch logs for all Lambda function executions and PM2 application logs on the EC2 instances, ensuring all system events are traceable.
 
 ## 4. Information Disclosure
 *Threat:* Confidential data is exposed to unauthorized individuals.
