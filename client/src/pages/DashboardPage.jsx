@@ -100,7 +100,7 @@ export default function DashboardPage() {
             </p>
             <p className="text-sm text-gray-500 font-medium">{label}</p>
           </div>
-        ))}
+        )))}
       </div>
 
       {/* Recent Tasks */}
