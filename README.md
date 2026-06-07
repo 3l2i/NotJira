@@ -204,7 +204,7 @@ Mini-JiraAWS/
 | **IAM least-privilege** | EC2 instance profile; Lambda roles scope to specific actions |
 | **Presigned S3 URLs** | Upload URLs expire in 5 min; View URLs expire in 1 hour |
 | **No credentials in code** | All secrets via environment variables on EC2 |
-| **A+ Security Grade** | Achieved an 'A+' on SecurityHeaders.com using a CloudFront Custom Response Headers Policy to enforce HSTS, Content-Security-Policy, X-Frame-Options, and X-Content-Type-Options |
+| **A+ Security Grade** | Achieved an 'A' on SecurityHeaders.com using a CloudFront Custom Response Headers Policy to enforce HSTS, Content-Security-Policy, X-Frame-Options, and X-Content-Type-Options |
 
 ---
 
