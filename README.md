@@ -1,4 +1,4 @@
-# Mini-Jira on AWS — Team Anti-Gravity
+# NotJira on AWS
 
 > **Live Demo:** https://d9lm1us8lvrs3.cloudfront.net
 > **GitHub Repo:** https://github.com/ziad102828/Mini-JiraAWS
